@@ -71,10 +71,13 @@ class AuthTests {
         resultActions
                 .andExpect(status().is2xxSuccessful());
 
+        // 응답에 대한 Return 값을 가져온다.
         MvcResult mvcResult = resultActions.andReturn();
 
+        // MockHttpServletResponse 를 가져올 수 있다.
         MockHttpServletResponse response = mvcResult.getResponse();
 
+        // 응답에 대한 Header의 Authentication이름을 가진 값을 가져올 수 있다.
         String authentication = response.getHeader("Authentication");
 
         assertThat(authentication).isNotEmpty();
