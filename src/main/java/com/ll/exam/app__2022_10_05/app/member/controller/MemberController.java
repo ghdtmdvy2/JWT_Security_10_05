@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.ll.exam.app__2022_10_05.util.Util;
 import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 
@@ -40,11 +40,11 @@ public class MemberController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authentication", "JWT키");
+        headers.set("Authentication", "JWT_Access_Token");
 
         String body = "username : %s, password : %s".formatted(loginDto.getUsername(), loginDto.getPassword());
 
-        return new ResponseEntity<>(body, headers, HttpStatus.OK);
+        return Util.spring.responseEntityOf(headers);
     }
 
     @Data
