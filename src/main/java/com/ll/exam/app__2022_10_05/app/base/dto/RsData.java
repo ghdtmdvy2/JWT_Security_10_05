@@ -15,8 +15,11 @@ public class RsData<T> {
     private String msg;
     private T data;
 
+    public static <T> RsData<T> of(String resultCode, String msg, T data) {
+        return new RsData<>(resultCode, msg, data);
+    }
     public static <T> RsData<T> of(String resultCode, String msg) {
-        return new RsData<>(resultCode, msg, null);
+        return of(resultCode, msg, null);
     }
 
     // 성공 했는 지 알려주는 함수.
