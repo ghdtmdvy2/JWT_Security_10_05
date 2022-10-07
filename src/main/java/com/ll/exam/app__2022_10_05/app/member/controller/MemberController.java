@@ -45,7 +45,7 @@ public class MemberController {
             return Util.spring.responseEntityOf(RsData.of("F-3", "비밀번호가 일치하지 않습니다."));
         }
 
-        String accessToken = "JWT_Access_Token";
+        String accessToken = memberService.genAccessToken(member);
 
         return Util.spring.responseEntityOf(
                 RsData.of(
