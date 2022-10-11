@@ -1,5 +1,6 @@
 package com.ll.exam.app__2022_10_05.app.security;
 
+import com.ll.exam.app__2022_10_05.app.security.filter.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
