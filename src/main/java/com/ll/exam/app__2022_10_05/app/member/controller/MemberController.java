@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.ll.exam.app__2022_10_05.util.Util;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.net.http.HttpResponse;
 
 @RestController
@@ -32,16 +33,7 @@ public class MemberController {
         return Util.spring.responseEntityOf(RsData.successOf(memberContext));
     }
     @PostMapping("/login")
-    public ResponseEntity<RsData> login(@RequestBody LoginDto loginDto) {
-        if (loginDto.isNotValid()) {
-            // 첫번째 파라미터 : ResponseEntity 의 body 는 화면상 보여주는 내용
-            // 두번째 파라미터 : headers 는 브라우저 내에서 보여주는 내용
-            // 세번째 파라미터 : 브라우저의 상태코드를 보여주는 내용
-
-            // 첫번째 파라미터를 객체로 보내주어, 알아서 자동으로 Json 형태로 뿌려주는 방법을 할 수 있다.
-            return Util.spring.responseEntityOf(RsData.of("F-1", "로그인 정보가 올바르지 않습니다."));
-        }
-
+    public ResponseEntity<RsData> login(@Valid @RequestBody LoginDto loginDto) {
         Member member = memberService.findByUsername(loginDto.getUsername()).orElse(null);
 
         if (member == null) {
