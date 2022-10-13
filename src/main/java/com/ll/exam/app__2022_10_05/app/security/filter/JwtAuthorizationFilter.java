@@ -38,12 +38,24 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             // Bearer 라는 문자열을 제거해 accessToken 만 추출
             String token = bearerToken.substring("Bearer ".length());
 
-            // token 이 변조 되었는 지 체크(verify)
+            // token 이 변조 되었는 지 1차 체크(verify) <- 시크릿 키로 확인
             if (jwtProvider.verify(token)) {
                 // 데이터 가져오기.
                 Map<String, Object> claims = jwtProvider.getClaims(token);
-                // claims 를 가지고 member 정보를 가져옴.
-                Member member = Member.fromJwtClaims(claims);
+                // 캐시(레디스)를 통해서
+                Member member = memberService.findByUsername((String) claims.get("username")).get();
+
+                // 2차 체크(화이트리스트에 포함되는지)
+                // 2차 체크는 왜 있는 거냐면 첫 로그인 후 token 이 발행 되면 그것으로 로그인이 된다.
+                // 또 다시 두번째 로그인 한 후 다른 token 으로 발행 받더라도
+                // 이전에 받았던 첫 로그인 한 token 으로 로그인이 될 수 있다.
+                // 하지만 2차 체크를 하게 되면 내 받은 첫 유효한 token 으로만 로그인이 가능하다.
+
+                // 즉 정리하자면 내가 원하는 token 한 개만 유효한 것으로 처리해주는 것이다.
+                if ( memberService.verifyWithWhiteList(member, token) ) {
+                    forceAuthentication(member);
+                }
+
                 // 회원이 있다면 강제 로그인.
                 forceAuthentication(member);
             }

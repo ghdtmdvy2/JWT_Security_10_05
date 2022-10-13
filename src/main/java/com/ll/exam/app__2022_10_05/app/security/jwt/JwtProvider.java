@@ -19,7 +19,7 @@ public class JwtProvider {
         return jwtSecretKey;
     }
 
-    public String generateAccessToken(Map<String, Object> claims, int seconds) {
+    public String generateAccessToken(Map<String, Object> claims, long seconds) {
         long now = new Date().getTime();
         Date accessTokenExpiresIn = new Date(now + 1000L * seconds);
 
