@@ -46,4 +46,19 @@ class CacheTests {
         rs = memberService.getCachedInt();
         System.out.println(rs);
     }
+
+    @Test
+    @DisplayName("캐시 수정")
+    void t3() throws Exception {
+        int rs = memberService.getCachedInt();
+        System.out.println(rs);
+
+        rs = memberService.getCachedInt();
+        System.out.println(rs);
+
+        memberService.putCacheKey1();
+
+        rs = memberService.getCachedInt();
+        System.out.println(rs);
+    }
 }
