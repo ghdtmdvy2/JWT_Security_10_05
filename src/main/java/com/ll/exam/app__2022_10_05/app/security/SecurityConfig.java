@@ -20,6 +20,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests(
                         authorizeRequests -> authorizeRequests
+                                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .antMatchers("/member/login", "/member/join")
                                 .permitAll()
                                 .anyRequest()
