@@ -3,6 +3,12 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+
+  cache:
+      type: redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
   jpa:
     properties:
       hibernate:
