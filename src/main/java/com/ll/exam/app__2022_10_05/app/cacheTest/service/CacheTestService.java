@@ -1,5 +1,6 @@
 package com.ll.exam.app__2022_10_05.app.cacheTest.service;
 
+import com.ll.exam.app__2022_10_05.app.cacheTest.dto.Person;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,5 +28,11 @@ public class CacheTestService {
     public int plus(int a, int b) {
         System.out.println("== plus 실행 ==");
         return a + b;
+    }
+
+    @Cacheable(value = "getName", key = "#p.id")
+    public String getName(Person p, int random) {
+        System.out.println("== getName 실행됨 ==");
+        return p.getName();
     }
 }
