@@ -56,4 +56,12 @@ public class MemberService {
 
         return member.toMap();
     }
+
+    public Member getByUsername__cached(String username) {
+        // 이런식으로 해줘야 @Cacheable("member")에 있는 this 호출이 가능하다.
+        MemberService thisObj = (MemberService)AppConfig.getContext().getBean("memberService");
+        Map<String, Object> memberMap = thisObj.getMemberMapByUsername__cached(username);
+
+        return Member.fromMap(memberMap);
+    }
 }

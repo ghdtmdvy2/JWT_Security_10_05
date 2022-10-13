@@ -44,8 +44,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 Map<String, Object> claims = jwtProvider.getClaims(token);
                 // 캐시(레디스)를 통해서
                 // cache 를 적용 하여 매번 DB 쿼리를 날라가는 것을 방지.
-                Map<String, Object> memberMap = memberService.getMemberMapByUsername__cached((String) claims.get("username"));
-                Member member = Member.fromMap(memberMap);
+                Member member = memberService.getByUsername__cached((String) claims.get("username"));
 
                 // 2차 체크(화이트리스트에 포함되는지)
                 // 2차 체크는 왜 있는 거냐면 첫 로그인 후 token 이 발행 되면 그것으로 로그인이 된다.
