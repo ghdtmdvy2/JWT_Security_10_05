@@ -4,6 +4,7 @@ import com.ll.exam.app__2022_10_05.app.member.entity.Member;
 import com.ll.exam.app__2022_10_05.app.member.repository.MemberRepository;
 import com.ll.exam.app__2022_10_05.app.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,5 +53,9 @@ public class MemberService {
     public int getCachedInt() {
         System.out.println("getCachedInt 호출됨");
         return 5;
+    }
+
+    @CacheEvict("key1")
+    public void deleteCacheKey1() {
     }
 }
