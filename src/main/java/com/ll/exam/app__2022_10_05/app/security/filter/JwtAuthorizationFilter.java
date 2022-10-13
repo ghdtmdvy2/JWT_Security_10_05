@@ -42,11 +42,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             if (jwtProvider.verify(token)) {
                 // 데이터 가져오기.
                 Map<String, Object> claims = jwtProvider.getClaims(token);
-                // username 데이터만 가져오기.
-                String username = (String) claims.get("username");
-                Member member = memberService.findByUsername(username).orElseThrow(
-                        () -> new UsernameNotFoundException("'%s' Username not found.".formatted(username))
-                );
+                // claims 를 가지고 member 정보를 가져옴.
+                Member member = Member.fromJwtClaims(claims);
                 // 회원이 있다면 강제 로그인.
                 forceAuthentication(member);
             }

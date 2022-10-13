@@ -3,9 +3,18 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create
 logging:
   level:
     com.ll.exam.app__2022_10_05.app: debug
+    org.hibernate.type.descriptor.sql: trace
 custom:
   jwt:
     secretKey: secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey

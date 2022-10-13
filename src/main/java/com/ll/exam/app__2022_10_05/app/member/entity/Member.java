@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,7 +41,22 @@ public class Member extends BaseEntity {
 
         return authorities;
     }
+    public static Member fromJwtClaims(Map<String, Object> jwtClaims) {
+        long id = (long)(int)jwtClaims.get("id");
+        LocalDateTime createDate = Util.date.bitsToLocalDateTime((List<Integer>)jwtClaims.get("createDate"));
+        LocalDateTime modifyDate = Util.date.bitsToLocalDateTime((List<Integer>)jwtClaims.get("modifyDate"));
+        String username = (String)jwtClaims.get("username");
+        String email = (String)jwtClaims.get("email");
 
+        return Member
+                .builder()
+                .id(id)
+                .createDate(createDate)
+                .modifyDate(modifyDate)
+                .username(username)
+                .email(email)
+                .build();
+    }
     // jwt 내용 안에 넣어주는 함수.
     public Map<String, Object> getAccessTokenClaims() {
         return Util.mapOf(
