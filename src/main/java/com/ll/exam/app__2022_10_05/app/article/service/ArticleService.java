@@ -1,8 +1,9 @@
 package com.ll.exam.app__2022_10_05.app.article.service;
 
 import com.ll.exam.app__2022_10_05.app.article.dto.request.ArticleModifyDto;
+import com.ll.exam.app__2022_10_05.app.article.entity.Article;
 import com.ll.exam.app__2022_10_05.app.article.repository.ArticleRepository;
-import com.ll.exam.app__2022_10_05.app.member.entity.Article;
+
 import com.ll.exam.app__2022_10_05.app.member.entity.Member;
 import com.ll.exam.app__2022_10_05.app.security.entity.MemberContext;
 import lombok.RequiredArgsConstructor;
